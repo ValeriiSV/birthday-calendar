@@ -1,0 +1,1 @@
+{"name":"Календарь дней рождения","short_name":"Дни рождения","description":"Все важные даты в одном месте","start_url":"/","display":"standalone","background_color":"#10072b","theme_color":"#10072b","icons":[{"src":"/birthday-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
