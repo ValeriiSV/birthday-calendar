@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10072b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Birthdays">
+  <title>Календарь дней рождения</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="glass.css">
+</head>
+<body>
+<main class="birthday-shell">
+  <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><div class="aurora aurora-three"></div>
+  <div class="app-frame">
+    <header class="topbar">
+      <div class="brand-mark">🎂</div>
+      <div><p class="eyebrow" data-i18n="assistant"></p><h1><span data-i18n="titleA"></span><br><span data-i18n="titleB"></span></h1></div>
+      <div class="header-actions">
+        <div class="language-slider ru" id="languageSlider" role="group" aria-label="Language"><span></span><button data-lang="ro">RO</button><button class="active" data-lang="ru">RU</button></div>
+        <button class="add-button" id="openAdd" aria-label="Add">＋</button>
+      </div>
+    </header>
+    <section class="summary-grid">
+      <div class="stat-card liquid"><span class="stat-icon">👥</span><strong id="totalCount">0</strong><span data-i18n="total"></span></div>
+      <div class="stat-card liquid"><span class="stat-icon">🗓️</span><strong id="monthCount">0</strong><span data-i18n="month"></span></div>
+      <div class="stat-card accent liquid"><span class="stat-icon">🔔</span><strong id="todayCount">0</strong><span data-i18n="today"></span></div>
+    </section>
+    <section class="calendar-sync liquid">
+      <div class="sync-icon">📅</div><div><strong data-i18n="calendar"></strong><span data-i18n="alerts"></span></div>
+      <button id="addAllCalendar" disabled>⇩ <span data-i18n="addAll"></span></button>
+    </section>
+    <section id="hero"></section>
+    <section class="list-section">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="dates"></p><h2 data-i18n="birthdays"></h2></div><span id="listCount" hidden>0</span></div>
+      <label class="search liquid" id="searchBox" hidden>⌕<input id="searchInput" data-i18n-placeholder="search"></label>
+      <div class="birthday-list" id="birthdayList"></div>
+    </section>
+  </div>
+</main>
+<dialog id="birthdayDialog" class="birthday-dialog liquid">
+  <form method="dialog"><button class="dialog-close" value="cancel">×</button></form>
+  <h2 data-i18n="addTitle"></h2><p class="dialog-description" data-i18n="addDescription"></p>
+  <form id="birthdayForm" class="birthday-form">
+    <label><span data-i18n="name"></span><input id="personName" required data-i18n-placeholder="nameExample"></label>
+    <label><span data-i18n="birthDate"></span><input id="personDate" required type="date"></label>
+    <fieldset><legend data-i18n="relationQuestion"></legend><div class="relation-grid" id="relationGrid"></div></fieldset>
+    <label><span data-i18n="note"></span> <em data-i18n="optional"></em><input id="personNote" data-i18n-placeholder="noteExample"></label>
+    <button class="save-button" type="submit">🎂 <span data-i18n="save"></span></button>
+  </form>
+</dialog>
+<script src="i18n.js"></script><script src="app.js"></script><script src="install.js"></script>
+</body></html>
