@@ -1,9 +1,12 @@
 # Birthday Calendar
 
-Calendar aniversări bilingv RO/RU, optimizat pentru iPhone și Cloudflare Workers.
+Aplicație PWA statică pentru aniversări, bilingvă RO/RU, cu Apple Liquid Glass și integrare Calendar iPhone.
 
-## Cloudflare
+## Cloudflare Pages
 
-- Build command: `npm run build`
-- Deploy command: `npm run deploy`
-- Node.js: 22
+- Production branch: `main`
+- Framework preset: `None`
+- Build command: lăsat gol
+- Build output directory: `/`
+
+Fiecare modificare publicată în `main` declanșează automat un nou deployment.
