@@ -1,58 +1,59 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ro" data-theme="auto">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#10072b">
+  <meta name="theme-color" content="#140b2d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Birthdays">
-  <title>Календарь дней рождения</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg">
-  <link rel="apple-touch-icon" href="icon.svg">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="glass.css">
+  <meta name="apple-mobile-web-app-title" content="Aniversări">
+  <meta name="description" content="Calendar personal pentru aniversări, în română și rusă">
+  <title>Calendarul aniversărilor</title>
+  <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="glass.css">
 </head>
 <body>
-<main class="birthday-shell">
   <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><div class="aurora aurora-three"></div>
-  <div class="app-frame">
+  <main class="app-shell">
     <header class="topbar">
-      <div class="brand-mark">🎂</div>
-      <div><p class="eyebrow" data-i18n="assistant"></p><h1><span data-i18n="titleA"></span><br><span data-i18n="titleB"></span></h1></div>
-      <div class="header-actions">
-        <div class="language-slider ru" id="languageSlider" role="group" aria-label="Language"><span></span><button data-lang="ro">RO</button><button class="active" data-lang="ru">RU</button></div>
-        <button class="add-button" id="openAdd" aria-label="Add">＋</button>
-      </div>
+      <button class="profile-chip liquid" id="openProfile" aria-label="Profil"><span class="profile-avatar" id="profileAvatar">V</span><span><small data-i18n="hello">Salut</small><strong id="profileName">Profilul meu</strong></span></button>
+      <div class="header-actions"><div class="language-slider" id="languageSlider"><span></span><button class="active" data-lang="ro">RO</button><button data-lang="ru">RU</button></div><button class="icon-button liquid" id="openSettings">⚙︎</button><button class="add-button" id="openAdd">＋</button></div>
     </header>
-    <section class="summary-grid">
-      <div class="stat-card liquid"><span class="stat-icon">👥</span><strong id="totalCount">0</strong><span data-i18n="total"></span></div>
-      <div class="stat-card liquid"><span class="stat-icon">🗓️</span><strong id="monthCount">0</strong><span data-i18n="month"></span></div>
-      <div class="stat-card accent liquid"><span class="stat-icon">🔔</span><strong id="todayCount">0</strong><span data-i18n="today"></span></div>
+    <section class="hero-title"><p class="eyebrow" data-i18n="assistant">Asistent personal</p><h1><span data-i18n="titleA">Calendarul</span> <span class="gradient-text" data-i18n="titleB">aniversărilor</span></h1></section>
+    <nav class="view-tabs liquid"><button class="active" data-view="home">⌂ <span data-i18n="home">Acasă</span></button><button data-view="year">▦ <span data-i18n="yearView">Anual</span></button><button data-view="gifts">♢ <span data-i18n="gifts">Cadouri</span></button></nav>
+    <section id="homeView" class="view-panel active">
+      <section class="summary-grid">
+        <article class="stat-card liquid"><span class="stat-icon purple">👥</span><div><strong id="totalCount">0</strong><span data-i18n="total">persoane</span></div></article>
+        <article class="stat-card liquid"><span class="stat-icon blue">🗓</span><div><strong id="monthCount">0</strong><span data-i18n="month">luna aceasta</span></div></article>
+        <article class="stat-card liquid"><span class="stat-icon pink">🔔</span><div><strong id="soonCount">0</strong><span data-i18n="soon">în 30 de zile</span></div></article>
+        <article class="stat-card liquid"><span class="stat-icon gold">◈</span><div><strong id="budgetCount">0</strong><span data-i18n="budget">buget cadouri</span></div></article>
+      </section>
+      <section class="calendar-sync liquid"><div class="sync-icon">📅</div><div class="sync-copy"><strong data-i18n="calendar">Calendar iPhone</strong><span data-i18n="alerts">Alerte cu 30, 7 și 1 zi înainte</span></div><button id="addAllCalendar" disabled>⇩ <span data-i18n="addAll">Adaugă toate</span></button></section>
+      <section id="spotlight"></section>
+      <section class="list-section">
+        <div class="section-heading"><div><p class="eyebrow" data-i18n="dates">Date importante</p><h2 data-i18n="birthdays">Aniversări</h2></div><span class="count-pill" id="listCount">0</span></div>
+        <div class="list-tools"><label class="search liquid">⌕<input id="searchInput" data-i18n-placeholder="search" placeholder="Caută o persoană"></label><button class="filter-button liquid" id="toggleFilters">≡ <span data-i18n="filter">Filtre</span></button></div>
+        <div class="filter-row" id="filterRow" hidden></div><div class="birthday-list" id="birthdayList"></div>
+      </section>
     </section>
-    <section class="calendar-sync liquid">
-      <div class="sync-icon">📅</div><div><strong data-i18n="calendar"></strong><span data-i18n="alerts"></span></div>
-      <button id="addAllCalendar" disabled>⇩ <span data-i18n="addAll"></span></button>
-    </section>
-    <section id="hero"></section>
-    <section class="list-section">
-      <div class="section-heading"><div><p class="eyebrow" data-i18n="dates"></p><h2 data-i18n="birthdays"></h2></div><span id="listCount" hidden>0</span></div>
-      <label class="search liquid" id="searchBox" hidden>⌕<input id="searchInput" data-i18n-placeholder="search"></label>
-      <div class="birthday-list" id="birthdayList"></div>
-    </section>
-  </div>
-</main>
-<dialog id="birthdayDialog" class="birthday-dialog liquid">
-  <form method="dialog"><button class="dialog-close" value="cancel">×</button></form>
-  <h2 data-i18n="addTitle"></h2><p class="dialog-description" data-i18n="addDescription"></p>
-  <form id="birthdayForm" class="birthday-form">
-    <label><span data-i18n="name"></span><input id="personName" required data-i18n-placeholder="nameExample"></label>
-    <label><span data-i18n="birthDate"></span><input id="personDate" required type="date"></label>
-    <fieldset><legend data-i18n="relationQuestion"></legend><div class="relation-grid" id="relationGrid"></div></fieldset>
-    <label><span data-i18n="note"></span> <em data-i18n="optional"></em><input id="personNote" data-i18n-placeholder="noteExample"></label>
-    <button class="save-button" type="submit">🎂 <span data-i18n="save"></span></button>
-  </form>
-</dialog>
-<script src="i18n.js"></script><script src="app.js"></script><script src="install.js"></script>
+    <section id="yearView" class="view-panel"><div class="section-heading"><div><p class="eyebrow" data-i18n="overview">Privire de ansamblu</p><h2 data-i18n="yearCalendar">Calendar anual</h2></div></div><div class="year-grid" id="yearGrid"></div></section>
+    <section id="giftsView" class="view-panel"><div class="section-heading"><div><p class="eyebrow" data-i18n="planning">Planificare</p><h2 data-i18n="giftIdeas">Idei de cadouri</h2></div><strong id="giftBudgetTotal"></strong></div><div class="gift-list" id="giftList"></div></section>
+  </main>
+  <dialog id="birthdayDialog" class="app-dialog liquid">
+    <form method="dialog"><button class="dialog-close" value="cancel">×</button></form>
+    <div class="dialog-heading"><span class="dialog-icon">🎁</span><div><h2 id="birthdayDialogTitle" data-i18n="addTitle">Adaugă o aniversare</h2><p data-i18n="addDescription">Datele rămân private pe dispozitivul tău.</p></div></div>
+    <form id="birthdayForm" class="form-grid"><input type="hidden" id="personId">
+      <label class="photo-picker"><input id="personPhoto" type="file" accept="image/*"><span id="photoPreview">＋</span><b data-i18n="addPhoto">Adaugă fotografie</b></label>
+      <label><span data-i18n="name">Nume</span><input id="personName" required data-i18n-placeholder="nameExample"></label><label><span data-i18n="birthDate">Data nașterii</span><input id="personDate" required type="date"></label>
+      <fieldset><legend data-i18n="relationQuestion">Relația</legend><div class="relation-grid" id="relationGrid"></div></fieldset>
+      <label><span data-i18n="phone">Telefon</span> <em data-i18n="optional">opțional</em><input id="personPhone" type="tel" placeholder="+373..."></label><label><span data-i18n="interests">Interese</span> <em data-i18n="optional">opțional</em><input id="personInterests" data-i18n-placeholder="interestsExample"></label>
+      <label><span data-i18n="giftIdea">Idee de cadou</span> <em data-i18n="optional">opțional</em><input id="personGift" data-i18n-placeholder="giftExample"></label><label><span data-i18n="giftBudget">Buget</span> <em data-i18n="optional">opțional</em><input id="personBudget" type="number" min="0" step="1" placeholder="500"></label>
+      <label class="full"><span data-i18n="note">Notiță</span> <em data-i18n="optional">opțional</em><textarea id="personNote" rows="2" data-i18n-placeholder="noteExample"></textarea></label><button class="save-button full" type="submit">✓ <span data-i18n="save">Salvează</span></button>
+    </form>
+  </dialog>
+  <dialog id="messageDialog" class="app-dialog liquid small-dialog"><form method="dialog"><button class="dialog-close" value="cancel">×</button></form><div class="dialog-heading"><span class="dialog-icon">✨</span><div><h2 data-i18n="greetingTitle">Felicitare</h2><p id="messageFor"></p></div></div><div class="tone-row" id="toneRow"></div><textarea id="greetingText" rows="7"></textarea><div class="share-grid"><button id="copyGreeting">⧉ <span data-i18n="copy">Copiază</span></button><button id="shareWhatsapp">◉ WhatsApp</button><button id="shareTelegram">➤ Telegram</button><button id="nativeShare">↗ <span data-i18n="share">Distribuie</span></button></div></dialog>
+  <dialog id="profileDialog" class="app-dialog liquid small-dialog"><form method="dialog"><button class="dialog-close" value="cancel">×</button></form><div class="dialog-heading"><span class="dialog-icon">👋</span><div><h2 data-i18n="profileTitle">Creează profilul</h2><p data-i18n="profileDescription">Personalizează aplicația. Datele rămân pe dispozitiv.</p></div></div><form id="profileForm" class="form-grid"><label class="full"><span data-i18n="yourName">Numele tău</span><input id="ownerName" required maxlength="40"></label><label><span data-i18n="currency">Monedă</span><select id="ownerCurrency"><option>MDL</option><option>RON</option><option>EUR</option><option>USD</option></select></label><label><span data-i18n="profileMode">Mod profil</span><select id="profileMode"><option value="private" data-i18n="privateMode">Privat</option><option value="public" data-i18n="publicMode">Public</option></select></label><p class="privacy-note full" id="profileModeHint"></p><button class="save-button full" type="submit">✓ <span data-i18n="continue">Continuă</span></button></form></dialog>
+  <dialog id="settingsDialog" class="app-dialog liquid small-dialog"><form method="dialog"><button class="dialog-close" value="cancel">×</button></form><div class="dialog-heading"><span class="dialog-icon">⚙︎</span><div><h2 data-i18n="settings">Setări</h2><p data-i18n="settingsDescription">Aspect, profil și siguranța datelor.</p></div></div><div class="settings-list"><label><span data-i18n="theme">Temă</span><select id="themeSelect"><option value="auto" data-i18n="themeAuto">Automată</option><option value="dark" data-i18n="themeDark">Întunecată</option><option value="light" data-i18n="themeLight">Luminoasă</option></select></label><button id="exportData">⇩ <span><b data-i18n="export">Exportă backup</b><small data-i18n="exportHint">Descarcă toate datele</small></span></button><label class="import-label">⇧ <span><b data-i18n="import">Importă backup</b><small data-i18n="importHint">Restaurează dintr-un fișier</small></span><input id="importData" type="file" accept="application/json"></label><button id="editProfile">👤 <span><b data-i18n="editProfile">Editează profilul</b><small id="settingsProfileName"></small></span></button></div></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="i18n.js"></script><script src="app.js"></script><script src="install.js"></script>
 </body></html>
