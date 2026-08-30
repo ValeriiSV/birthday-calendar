@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Datele complete ale fiecărui utilizator: doar el le poate citi/scrie.
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Copia publică (fără telefoane), folosită de linkul de partajare.
+    // Citire: oricine, DAR doar dacă documentul are public == true.
+    // Scriere: doar proprietarul contului (ownerUid trebuie să fie uid-ul lui).
+    match /shares/{uid} {
+      allow read: if resource.data.public == true;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.ownerUid;
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.ownerUid;
+    }
+  }
+}
