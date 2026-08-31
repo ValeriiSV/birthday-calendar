@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "birthday-calendar-f2z",
+  "pages_build_output_dir": ".",
+  "compatibility_date": "2026-08-30",
+  "ai": {
+    "binding": "AI"
+  }
+}
+

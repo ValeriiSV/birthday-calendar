@@ -1,6 +1,24 @@
 # Birthday Calendar
 
-Aplicație PWA statică pentru aniversări, bilingvă RO/RU, cu Apple Liquid Glass și integrare Calendar iPhone.
+Aplicație PWA pentru aniversări, bilingvă RO/RU, cu Apple Liquid Glass, conturi Firebase și funcții AI pe Cloudflare Pages.
+
+## Funcții
+
+- cont cu email/parolă, sesiune persistentă și restabilirea parolei;
+- sincronizare privată per utilizator în Cloud Firestore, cu migrarea datelor locale la prima autentificare;
+- adăugare, editare și ștergere persoane, inclusiv fotografii;
+- filtre după relație, lună și următoarele 30 de zile;
+- calendar anual și alerte iPhone cu 30, 7 și 1 zi înainte;
+- felicitări RO/RU pentru WhatsApp, Telegram și Share Sheet;
+- sfaturi de cadouri personalizate cu Workers AI;
+- imagini aniversare generate cu AI după interese și descriere;
+- backup/restaurare JSON;
+- temă luminoasă, întunecată sau automată;
+- instalare PWA și funcționare offline.
+
+Datele rămân disponibile offline în `localStorage`. După autentificare, ele se sincronizează în calea privată `users/{uid}` din Firestore. Regulile din `firestore.rules` permit accesul numai când UID-ul autentificat corespunde utilizatorului din cale.
+
+Endpointurile `/api/gift-advice` și `/api/generate-image` verifică semnătura tokenului Firebase înainte de a apela Workers AI. Bindingul Cloudflare trebuie să se numească `AI`, conform `wrangler.jsonc`.
 
 ## Funcții
 
@@ -26,11 +44,11 @@ Autentificarea și modul public folosesc [Firebase](https://firebase.google.com)
 3. **Firestore Database** → Create database → pornește în modul implicit (production).
 4. **Firestore → Rules** → copiază conținutul fișierului [`firestore.rules`](./firestore.rules) din acest repo și publică-l.
 5. **Project settings** (⚙︎) → în secțiunea "Your apps" → adaugă o aplicație web → copiază obiectul de configurare.
-6. Lipește valorile copiate în [`firebase-config.js`](./firebase-config.js) din acest repo, în locul textelor `YOUR_...`.
+6. Configurația proiectului `birthday-calendar-ai` este deja inclusă în [`firebase-config.js`](./firebase-config.js).
 7. **Authentication → Settings → Authorized domains** → adaugă domeniul de pe Cloudflare Pages (ex. `nume-proiect.pages.dev` și domeniul propriu, dacă ai).
 8. Publică modificările pe branch-ul `main` — Cloudflare Pages redeployează automat.
 
-Fără pașii de mai sus, aplicația funcționează normal, dar doar local (fără cont, fără modul public) — nu se blochează nimic.
+Configurația Firebase, autentificarea Email/Password, domeniul Cloudflare Pages și regulile Firestore sunt deja activate pentru deploymentul public.
 
 ## Cloudflare Pages
 

@@ -30,6 +30,7 @@
       if (!ready) fn(null);
     },
     currentUser() { return ready ? auth.currentUser : null; },
+    async getToken() { return ready && auth.currentUser ? auth.currentUser.getIdToken() : null; },
     async signUp(email, password) {
       if (!ready) throw { code: "app/offline" };
       const cred = await auth.createUserWithEmailAndPassword(email, password);
