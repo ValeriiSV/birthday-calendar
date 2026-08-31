@@ -19,6 +19,8 @@ async function aiRequest(path, payload) {
   return result;
 }
 
+window.BirthdayAI = { request: aiRequest };
+
 $("#generatePhotoAI").addEventListener("click", async () => {
   const button = $("#generatePhotoAI");
   const payload = {

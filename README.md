@@ -15,6 +15,11 @@ Aplicație PWA pentru aniversări, bilingvă RO/RU, cu Apple Liquid Glass, contu
 - backup/restaurare JSON;
 - temă luminoasă, întunecată sau automată;
 - instalare PWA și funcționare offline.
+- Hub WOW cu profil personalizat, mai multe tipuri de evenimente și hartă de relații;
+- felicitări și carduri vizuale AI, plus planificator Party AI;
+- flux complet de cadouri (idee → cumpărat → împachetat → oferit) și istoric anual;
+- grupuri de familie cu cod de invitație și wishlist secret cu rezervări fără spoilere;
+- import din fișiere calendar `.ics`, import contacte pe dispozitive compatibile și notificări inteligente.
 
 Datele rămân disponibile offline în `localStorage`. După autentificare, ele se sincronizează în calea privată `users/{uid}` din Firestore. Regulile din `firestore.rules` permit accesul numai când UID-ul autentificat corespunde utilizatorului din cale.
 

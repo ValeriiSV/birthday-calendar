@@ -79,6 +79,51 @@
       if (!snap.exists) return null;
       const data = snap.data();
       return data && data.public ? data : null;
+    },
+    async createFamily(uid, name, items) {
+      if (!ready) throw { code: "app/offline" };
+      const code = Array.from(crypto.getRandomValues(new Uint8Array(5)), byte => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[byte % 32]).join("");
+      await db.collection("groups").doc(code).set({ code, name, ownerUid: uid, members: [uid], items, inviteOpen: true, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      return code;
+    },
+    async joinFamily(uid, code) {
+      if (!ready) throw { code: "app/offline" };
+      const ref = db.collection("groups").doc(String(code).trim().toUpperCase());
+      await db.runTransaction(async transaction => {
+        const snap = await transaction.get(ref);
+        if (!snap.exists || !snap.data().inviteOpen) throw { code: "group/not-found" };
+        const members = Array.from(new Set([...(snap.data().members || []), uid]));
+        transaction.update(ref, { members, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      });
+      return (await ref.get()).data();
+    },
+    async loadFamily(code) {
+      if (!ready) return null;
+      const snap = await db.collection("groups").doc(String(code).trim().toUpperCase()).get();
+      return snap.exists ? snap.data() : null;
+    },
+    async saveFamilyItems(code, uid, items) {
+      if (!ready) throw { code: "app/offline" };
+      await db.collection("groups").doc(String(code).trim().toUpperCase()).update({ items, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+    },
+    async saveWishlist(uid, payload) {
+      if (!ready) throw { code: "app/offline" };
+      await db.collection("wishlists").doc(uid).set({ ...payload, ownerUid: uid, public: true, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+    },
+    async loadWishlist(uid) {
+      if (!ready) return null;
+      const snap = await db.collection("wishlists").doc(uid).get();
+      return snap.exists && snap.data().public ? snap.data() : null;
+    },
+    async reserveWish(ownerUid, itemId, reserverUid) {
+      if (!ready) throw { code: "app/offline" };
+      const ref = db.collection("wishlists").doc(ownerUid);
+      await db.runTransaction(async transaction => {
+        const snap = await transaction.get(ref);
+        if (!snap.exists) throw { code: "wishlist/not-found" };
+        const reservations = { ...(snap.data().reservations || {}), [itemId]: reserverUid };
+        transaction.update(ref, { reservations, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      });
     }
   };
 })();
