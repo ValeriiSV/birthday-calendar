@@ -1,0 +1,19 @@
+.phone-picker-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px;
+}
+
+.phone-picker-row button {
+  width: 44px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: linear-gradient(135deg, #8c65ef33, #ff6fb322);
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.phone-picker-row button:hover {
+  border-color: #a984ff;
+}
