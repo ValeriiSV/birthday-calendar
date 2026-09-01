@@ -6,6 +6,13 @@ function clean(input, max = 600) {
   return String(input || "").trim().slice(0, max);
 }
 
+function zodiac(date) {
+  const match = String(date || "").match(/^\d{4}-(\d{2})-(\d{2})$/);
+  if (!match) return "unspecified";
+  const day = Number(match[1]) * 100 + Number(match[2]);
+  return day >= 1222 || day <= 119 ? "Capricorn" : day <= 218 ? "Aquarius" : day <= 320 ? "Pisces" : day <= 419 ? "Aries" : day <= 520 ? "Taurus" : day <= 620 ? "Gemini" : day <= 722 ? "Cancer" : day <= 822 ? "Leo" : day <= 922 ? "Virgo" : day <= 1022 ? "Libra" : day <= 1121 ? "Scorpio" : "Sagittarius";
+}
+
 export async function onRequestPost(context) {
   let user;
   try {
@@ -33,6 +40,7 @@ export async function onRequestPost(context) {
       `Name: ${clean(body.name, 80)}`,
       `Event: ${clean(body.eventType, 60)}`,
       `Relationship: ${clean(body.relation, 60)}`,
+      `Zodiac sign: ${zodiac(body.date)} (use only as a playful detail, never as a factual personality claim)`,
       `Interests: ${clean(body.interests) || "unspecified"}`,
       `Personality: ${clean(body.personality) || "unspecified"}`,
       `Style: ${clean(body.style) || "unspecified"}`,
