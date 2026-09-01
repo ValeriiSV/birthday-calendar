@@ -82,6 +82,8 @@ $("#openPartyAI").onclick = () => $("#partyDialog").showModal();
 $("#partyForm").onsubmit = async event => {
   event.preventDefault();
   if (!requireUser()) return;
+  const button = event.submitter || event.currentTarget.querySelector('[type="submit"]');
+  button.disabled = true;
   const result = $("#partyResult");
   result.hidden = false;
   result.textContent = t("aiThinking");
@@ -89,8 +91,8 @@ $("#partyForm").onsubmit = async event => {
     const response = await window.BirthdayAI.request("/api/assistant", { task: "party", lang: lang(), occasion: $("#partyOccasion").value, guests: $("#partyGuests").value, budget: $("#partyBudget").value, mood: $("#partyMood").value, currency: state().profile?.currency || "MDL" });
     result.textContent = response.result;
   } catch (error) {
-    if (error.message !== "AUTH_REQUIRED") result.textContent = t("aiError");
-  }
+    if (error.message !== "AUTH_REQUIRED") result.textContent = window.BirthdayAI.errorText(error);
+  } finally { button.disabled = false; }
 };
 
 $("#generateGreetingAI").onclick = async () => {
@@ -102,7 +104,7 @@ $("#generateGreetingAI").onclick = async () => {
     const response = await window.BirthdayAI.request("/api/assistant", { task: "greeting", ...person, tone: $(".tone-row .active")?.dataset.tone, lang: lang() });
     $("#greetingText").value = response.result;
   } catch (error) {
-    if (error.message !== "AUTH_REQUIRED") notify(t("aiError"));
+    if (error.message !== "AUTH_REQUIRED") notify(window.BirthdayAI.errorText(error));
   } finally { button.disabled = false; }
 };
 
@@ -136,7 +138,7 @@ $("#generateCardAI").onclick = async () => {
     context.textAlign = "center"; context.fillStyle = "white"; context.shadowColor = "#0008"; context.shadowBlur = 18; context.font = "800 78px system-ui"; context.fillText(person.name, 540, 940);
     context.font = "500 38px system-ui"; wrapText(context, $("#greetingText").value, 540, 1020, 820, 52, 5);
     $("#cardFor").textContent = person.name; $("#cardDialog").showModal();
-  } catch (error) { if (error.message !== "AUTH_REQUIRED") notify(t("aiError")); }
+  } catch (error) { if (error.message !== "AUTH_REQUIRED") notify(window.BirthdayAI.errorText(error)); }
   finally { button.disabled = false; }
 };
 
