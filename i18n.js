@@ -13,6 +13,17 @@ Object.assign(window.I18N.ru,{
 });
 
 Object.assign(window.I18N.ro, {
+  zodiac: "Zodie",
+  zodiacAutomatic: "Se calculează automat",
+  zodiacSigns: {aries:"Berbec",taurus:"Taur",gemini:"Gemeni",cancer:"Rac",leo:"Leu",virgo:"Fecioară",libra:"Balanță",scorpio:"Scorpion",sagittarius:"Săgetător",capricorn:"Capricorn",aquarius:"Vărsător",pisces:"Pești"}
+});
+Object.assign(window.I18N.ru, {
+  zodiac: "Знак зодиака",
+  zodiacAutomatic: "Рассчитывается автоматически",
+  zodiacSigns: {aries:"Овен",taurus:"Телец",gemini:"Близнецы",cancer:"Рак",leo:"Лев",virgo:"Дева",libra:"Весы",scorpio:"Скорпион",sagittarius:"Стрелец",capricorn:"Козерог",aquarius:"Водолей",pisces:"Рыбы"}
+});
+
+Object.assign(window.I18N.ro, {
   aiError: "Funcția AI nu este disponibilă momentan. Încearcă din nou peste câteva clipe.",
   aiNetworkError: "Nu există conexiune la serviciul AI. Verifică internetul și încearcă din nou."
 });
