@@ -10,7 +10,7 @@
   <meta name="description" content="Calendar personal pentru aniversări, în română și rusă">
   <title>Calendarul aniversărilor</title>
   <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon.svg">
-  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="glass.css"><link rel="stylesheet" href="auth-ai.css"><link rel="stylesheet" href="wow.css">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="glass.css"><link rel="stylesheet" href="auth-ai.css"><link rel="stylesheet" href="wow.css"><link rel="stylesheet" href="contact-picker.css">
 </head>
 <body>
   <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><div class="aurora aurora-three"></div>
@@ -63,7 +63,7 @@
       <label><span data-i18n="zodiac">Zodie</span><input id="personZodiac" readonly data-i18n-placeholder="zodiacAutomatic" placeholder="Se calculează automat"></label>
       <label><span data-i18n="eventType">Tip eveniment</span><select id="personEventType"><option value="birthday" data-i18n="eventBirthday">Zi de naștere</option><option value="anniversary" data-i18n="eventAnniversary">Aniversare de cuplu</option><option value="nameDay" data-i18n="eventNameDay">Onomastică</option><option value="important" data-i18n="eventImportant">Alt moment important</option></select></label><label><span data-i18n="personality">Personalitate</span><input id="personPersonality" data-i18n-placeholder="personalityExample"></label>
       <fieldset><legend data-i18n="relationQuestion">Relația</legend><div class="relation-grid" id="relationGrid"></div></fieldset>
-      <label><span data-i18n="phone">Telefon</span> <em data-i18n="optional">opțional</em><input id="personPhone" type="tel" placeholder="+373..."></label><label><span data-i18n="interests">Interese</span> <em data-i18n="optional">opțional</em><input id="personInterests" data-i18n-placeholder="interestsExample"></label>
+      <label><span data-i18n="phone">Telefon</span> <em data-i18n="optional">opțional</em><div class="phone-picker-row"><input id="personPhone" type="tel" placeholder="+373..."><button id="pickPhoneContact" type="button" title="Alege din contacte" data-i18n-title="chooseContact">☏</button></div></label><label><span data-i18n="interests">Interese</span> <em data-i18n="optional">opțional</em><input id="personInterests" data-i18n-placeholder="interestsExample"></label>
       <label><span data-i18n="giftIdea">Idee de cadou</span> <em data-i18n="optional">opțional</em><input id="personGift" data-i18n-placeholder="giftExample"></label><label><span data-i18n="giftBudget">Buget</span> <em data-i18n="optional">opțional</em><input id="personBudget" type="number" min="0" step="1" placeholder="500"></label>
       <label><span data-i18n="personalStyle">Stil personal</span><input id="personStyle" data-i18n-placeholder="styleExample"></label><label><span data-i18n="privateWishlist">Dorințe private</span><input id="personWishlist" data-i18n-placeholder="wishlistExample"></label>
       <label class="full"><span data-i18n="note">Notiță</span> <em data-i18n="optional">opțional</em><textarea id="personNote" rows="2" data-i18n-placeholder="noteExample"></textarea></label><button class="save-button full" type="submit">✓ <span data-i18n="save">Salvează</span></button>
