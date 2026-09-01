@@ -52,7 +52,7 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const response = await context.env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const response = await context.env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", {
       messages: [
         { role: "system", content: "You are a concise celebration planner. Keep suggestions safe, inclusive, affordable and culturally neutral." },
         { role: "user", content: instructions }

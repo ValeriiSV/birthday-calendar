@@ -34,7 +34,7 @@ export async function onRequestPost(context) {
   ].join("\n");
 
   try {
-    const response = await context.env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const response = await context.env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", {
       messages: [
         { role: "system", content: "Give useful gift suggestions. Never claim personal knowledge beyond the supplied profile." },
         { role: "user", content: prompt }

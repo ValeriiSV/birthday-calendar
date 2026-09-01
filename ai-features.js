@@ -15,7 +15,11 @@ async function aiRequest(path, payload) {
     body: JSON.stringify(payload)
   });
   const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(result.error || "AI_ERROR");
+  if (!response.ok) {
+    const error = new Error(result.error || "AI_ERROR");
+    error.status = response.status;
+    throw error;
+  }
   return result;
 }
 
