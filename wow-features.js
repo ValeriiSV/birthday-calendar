@@ -172,14 +172,29 @@ function parseIcs(text) {
 }
 $("#importCalendarButton").onclick = () => $("#icsImport").click();
 $("#icsImport").onchange = async event => { const file = event.target.files[0]; if (!file) return; const records = parseIcs(await file.text()); window.BirthdayApp.addItems(records); notify(t("importCount").replace("{count}", records.length)); event.target.value = ""; };
-$("#importContactsButton").onclick = async () => {
-  if (!("contacts" in navigator) || typeof navigator.contacts.select !== "function") return notify(t("contactsUnsupported"));
+async function choosePhoneContact() {
+  if (!("contacts" in navigator) || typeof navigator.contacts.select !== "function") {
+    notify(t("contactsUnsupported"));
+    return null;
+  }
   try {
     const contacts = await navigator.contacts.select(["name", "tel"], { multiple: false });
-    if (!contacts.length) return;
-    window.BirthdayApp.openPerson({ name: contacts[0].name?.[0] || "", phone: contacts[0].tel?.[0] || "", eventType: "birthday", relation: "other" });
-    notify(t("completeBirthdayDate"));
-  } catch { /* user cancelled */ }
+    if (!contacts.length) return null;
+    return { name: contacts[0].name?.[0] || "", phone: contacts[0].tel?.[0] || "" };
+  } catch { return null; /* user cancelled */ }
+}
+$("#pickPhoneContact").onclick = async () => {
+  const contact = await choosePhoneContact();
+  if (!contact) return;
+  $("#personPhone").value = contact.phone;
+  if (!$("#personName").value.trim()) $("#personName").value = contact.name;
+  notify(t("contactSelected"));
+};
+$("#importContactsButton").onclick = async () => {
+  const contact = await choosePhoneContact();
+  if (!contact) return;
+  window.BirthdayApp.openPerson({ ...contact, eventType: "birthday", relation: "other" });
+  notify(t("completeBirthdayDate"));
 };
 
 $("#openFamilyGroup").onclick = () => { $("#familyDialog").showModal(); const code = localStorage.getItem(FAMILY_KEY); $("#familyStatus").textContent = code ? t("activeFamily").replace("{code}", code) : t("familyNotConnected"); };
