@@ -33,8 +33,7 @@ export async function onRequestPost(context) {
   try {
     const response = await context.env.AI.run("@cf/black-forest-labs/flux-1-schnell", {
       prompt,
-      steps: 6,
-      seed: crypto.getRandomValues(new Uint32Array(1))[0]
+      steps: 6
     });
     if (!response?.image) return jsonError("EMPTY_AI_RESPONSE", 502);
     return Response.json({ dataURI: `data:image/jpeg;base64,${response.image}` }, { headers: { "Cache-Control": "no-store" } });
