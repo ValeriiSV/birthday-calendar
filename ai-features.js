@@ -3,17 +3,36 @@ const language = () => window.BirthdayApp?.getState().lang || "ro";
 const text = key => window.I18N?.[language()]?.[key] || key;
 
 async function aiRequest(path, payload) {
-  const token = await window.AppAuth?.getToken?.();
+  let token = await window.AppAuth?.getToken?.();
   if (!token) {
     window.BirthdayApp.notify(text("aiLogin"));
     window.BirthdayApp.openAuth();
     throw new Error("AUTH_REQUIRED");
   }
-  const response = await fetch(path, {
+  const send = currentToken => fetch(path, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${currentToken}` },
     body: JSON.stringify(payload)
   });
+  let response;
+  try {
+    response = await send(token);
+    if (response.status === 401) {
+      token = await window.AppAuth?.getToken?.(true);
+      if (token) response = await send(token);
+    }
+  } catch {
+    const error = new Error("NETWORK_ERROR");
+    error.status = 0;
+    throw error;
+  }
+  if (response.status === 401) {
+    window.BirthdayApp.notify(text("aiLogin"));
+    window.BirthdayApp.openAuth();
+    const error = new Error("AUTH_REQUIRED");
+    error.status = 401;
+    throw error;
+  }
   const result = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error(result.error || "AI_ERROR");
@@ -23,7 +42,13 @@ async function aiRequest(path, payload) {
   return result;
 }
 
-window.BirthdayAI = { request: aiRequest };
+function aiErrorText(error) {
+  if (error?.message === "AUTH_REQUIRED" || error?.status === 401) return text("aiLogin");
+  if (error?.message === "NETWORK_ERROR") return text("aiNetworkError");
+  return text("aiError");
+}
+
+window.BirthdayAI = { request: aiRequest, errorText: aiErrorText };
 
 $("#generatePhotoAI").addEventListener("click", async () => {
   const button = $("#generatePhotoAI");
@@ -46,7 +71,7 @@ $("#generatePhotoAI").addEventListener("click", async () => {
     window.BirthdayApp.setPendingPhoto(result.dataURI);
     window.BirthdayApp.notify(language() === "ro" ? "Imaginea AI este gata." : "Изображение ИИ готово.");
   } catch (error) {
-    if (error.message !== "AUTH_REQUIRED") window.BirthdayApp.notify(text("aiError"));
+    if (error.message !== "AUTH_REQUIRED") window.BirthdayApp.notify(aiErrorText(error));
   } finally {
     button.disabled = false;
     button.classList.remove("loading");
@@ -68,7 +93,7 @@ $("#giftList").addEventListener("click", async event => {
     $("#aiGiftResult").textContent = result.advice;
   } catch (error) {
     if (error.message === "AUTH_REQUIRED") $("#giftAiDialog").close();
-    else $("#aiGiftResult").textContent = text("aiError");
+    else $("#aiGiftResult").textContent = aiErrorText(error);
   } finally {
     button.disabled = false;
   }
