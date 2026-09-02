@@ -1,0 +1,313 @@
+/* Warm graphite studio theme — inspired by the supplied dashboard reference. */
+:root,
+[data-theme="light"],
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #171614;
+  --bg2: #24211e;
+  --card: rgba(54, 49, 44, .78);
+  --card-strong: rgba(67, 60, 54, .92);
+  --line: rgba(255, 225, 195, .13);
+  --border: rgba(255, 225, 195, .13);
+  --text: #f8f2eb;
+  --muted: #b9aea4;
+  --purple: #ff9a4a;
+  --pink: #ff6f43;
+  --blue: #6db7b0;
+  --gold: #ffc27a;
+  --danger: #ff8377;
+  --shadow: 0 24px 70px rgba(0, 0, 0, .34);
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html { background: #151412; }
+
+body,
+[data-theme="light"] body {
+  background-color: #191816;
+  background-image:
+    linear-gradient(rgba(255, 220, 184, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 220, 184, .045) 1px, transparent 1px),
+    radial-gradient(circle at 88% 7%, rgba(255, 139, 58, .22), transparent 28%),
+    radial-gradient(circle at 10% 94%, rgba(65, 129, 126, .18), transparent 31%),
+    linear-gradient(145deg, #171614, #24201d 58%, #171614);
+  background-size: 112px 112px, 112px 112px, auto, auto, auto;
+  background-attachment: scroll;
+}
+
+.aurora { opacity: .13; filter: blur(110px); }
+.aurora-one { background: #e97535; }
+.aurora-two { background: #f4a65b; }
+.aurora-three { background: #357e78; }
+
+.app-shell {
+  width: calc(100% - 40px);
+  max-width: 1180px;
+  min-width: 0;
+  margin: 28px auto;
+  padding: max(24px, env(safe-area-inset-top)) 28px max(60px, env(safe-area-inset-bottom));
+  border: 1px solid rgba(255, 225, 195, .12);
+  border-radius: 30px;
+  background: rgba(31, 29, 26, .82);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 255, 255, .045);
+  backdrop-filter: blur(26px) saturate(115%);
+  -webkit-backdrop-filter: blur(26px) saturate(115%);
+}
+
+.liquid,
+.stat-card,
+.birthday-row,
+.gift-row,
+.month-card,
+.spotlight,
+.calendar-sync,
+.relationship-card {
+  background: linear-gradient(145deg, rgba(68, 61, 55, .88), rgba(45, 42, 38, .82));
+  border-color: var(--line);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055), 0 14px 35px rgba(0,0,0,.2);
+}
+
+.liquid::before {
+  background: linear-gradient(145deg, rgba(255, 232, 210, .055), transparent 42%, rgba(255, 154, 74, .025));
+}
+
+.topbar { min-width: 0; }
+.profile-chip { background: rgba(59, 54, 49, .78); }
+.profile-avatar,
+.account-avatar {
+  background: linear-gradient(145deg, #ffad5d, #df6435);
+  box-shadow: 0 8px 24px rgba(225, 102, 50, .25);
+}
+
+.language-slider { background: rgba(13, 12, 11, .68); }
+.language-slider > span { background: linear-gradient(135deg, #ffad5c, #df6335); }
+.add-button,
+.save-button,
+.calendar-sync button,
+.empty-state button,
+.smart-reminder button {
+  background: linear-gradient(135deg, #ffad5c, #df6335);
+  box-shadow: 0 10px 25px rgba(223, 99, 53, .22);
+}
+
+.hero-title { padding-top: 44px; }
+.hero-title h1 { max-width: 860px; letter-spacing: -.06em; }
+.gradient-text {
+  background-image: linear-gradient(90deg, #ffc07c, #ff7548);
+}
+.eyebrow { color: #ff9a4a; }
+
+.view-tabs {
+  width: 100%;
+  background: rgba(42, 39, 36, .9);
+  border-radius: 14px;
+}
+.view-tabs button { flex: 1; min-width: 0; border-radius: 10px; }
+.view-tabs button.active {
+  background: linear-gradient(145deg, #5a5048, #413a35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 6px 16px rgba(0,0,0,.24);
+}
+
+.stat-card { border-radius: 16px; }
+.stat-icon,
+.sync-icon,
+.dialog-icon,
+.wow-card > span { border-radius: 12px; }
+.stat-icon.purple,
+.stat-icon.pink,
+.dialog-icon,
+.wow-card > span { background: rgba(255, 131, 66, .14); }
+.stat-icon.blue,
+.sync-icon { background: rgba(91, 164, 156, .16); }
+.stat-icon.gold { background: rgba(255, 190, 105, .14); }
+
+.calendar-sync,
+.spotlight,
+.relationship-card { border-radius: 20px; }
+.spotlight {
+  background:
+    radial-gradient(circle at 94% 100%, rgba(255, 127, 55, .17), transparent 34%),
+    linear-gradient(135deg, rgba(72, 64, 57, .95), rgba(43, 40, 37, .91));
+}
+.spotlight::after { background: rgba(255, 120, 49, .22); }
+.spotlight-top { color: #ffc88d; }
+.age-ring { border-color: #ef8644; background: #29231f; }
+
+.search,
+.filter-button,
+.count-pill { background: rgba(50, 46, 42, .78); }
+.search:focus-within { border-color: rgba(255, 163, 92, .55); }
+.filter-row button.active,
+.tone-row button.active,
+.relation-grid button.selected,
+.auth-tabs button.active {
+  background: linear-gradient(135deg, #f09a50, #d76236);
+  border-color: #ffb36c;
+}
+
+.view-panel,
+.summary-grid,
+.calendar-sync,
+.spotlight,
+.spotlight-main,
+.spotlight-copy,
+.list-section,
+.list-tools,
+.birthday-list,
+.birthday-row,
+.person,
+.when,
+.gift-list,
+.gift-row,
+.gift-copy,
+.year-grid,
+.month-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.birthday-row,
+.gift-row { border-radius: 16px; }
+.birthday-row.today {
+  outline-color: rgba(255, 141, 73, .5);
+  background: linear-gradient(145deg, rgba(84, 64, 50, .96), rgba(48, 42, 37, .92));
+}
+.when > b { color: #ffc68e; }
+.row-actions button,
+.spotlight-actions button,
+.share-grid button,
+.history-button {
+  background: rgba(18, 17, 15, .24);
+}
+
+.wow-card { border-radius: 16px; }
+.smart-reminder { background: linear-gradient(135deg, rgba(255, 135, 65, .14), rgba(58, 53, 48, .86)); }
+.relationship-map { background: radial-gradient(circle, rgba(241, 130, 65, .13), transparent 58%); }
+.relation-center { background: linear-gradient(135deg, #ffa757, #d95f34); }
+
+.ai-photo-button,
+.ai-gift-button,
+.ai-inline-actions button {
+  border-color: rgba(255, 165, 94, .45);
+  background: rgba(222, 101, 49, .13);
+  color: #ffd0a7;
+}
+
+.app-dialog,
+[data-theme="light"] .app-dialog {
+  width: min(680px, calc(100% - 24px));
+  max-height: calc(100dvh - 24px);
+  background: rgba(37, 34, 31, .98);
+  border-color: rgba(255, 220, 185, .15);
+  border-radius: 22px;
+}
+.app-dialog::backdrop { background: rgba(8, 7, 6, .77); }
+.dialog-close { background: rgba(255,255,255,.06); }
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+#greetingText,
+[data-theme="light"] .form-grid input,
+[data-theme="light"] .form-grid select,
+[data-theme="light"] .form-grid textarea,
+[data-theme="light"] #greetingText,
+.family-actions input,
+.join-row input,
+.history-form input {
+  min-width: 0;
+  background: rgba(16, 15, 14, .58);
+  border-color: var(--line);
+}
+.form-grid input:focus,
+.form-grid textarea:focus { border-color: #f3a15d; }
+
+@media (max-width: 760px) {
+  body { background-size: 76px 76px, 76px 76px, auto, auto, auto; }
+
+  .app-shell {
+    width: 100%;
+    margin: 0;
+    padding: max(14px, env(safe-area-inset-top)) 14px max(56px, env(safe-area-inset-bottom));
+    border: 0;
+    border-radius: 0;
+    background: rgba(29, 27, 24, .72);
+    box-shadow: none;
+  }
+
+  .topbar { gap: 8px; }
+  .header-actions { min-width: 0; }
+  .hero-title { padding: 36px 2px 22px; }
+  .view-tabs { overflow: hidden; }
+  .view-tabs button { padding: 10px 4px; white-space: nowrap; }
+
+  .calendar-sync { display: grid; grid-template-columns: 45px minmax(0, 1fr); }
+  .calendar-sync button {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .birthday-row {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    align-items: start;
+  }
+  .birthday-row .when {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .birthday-row .when > b { flex: 1; }
+  .birthday-row .row-actions { margin-top: 0; flex: none; }
+  .birthday-row .row-actions button { min-width: 34px; min-height: 34px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title h1 { font-size: clamp(34px, 10.2vw, 42px); }
+  .summary-grid { gap: 9px; }
+  .stat-card { gap: 10px; padding: 12px 10px; }
+  .stat-card strong { font-size: 25px; }
+  .stat-card div span { font-size: 11px; }
+
+  .view-tabs button { font-size: 12px; }
+  .list-tools { grid-template-columns: minmax(0, 1fr) auto; }
+  .filter-button { padding-inline: 12px; }
+
+  .spotlight-main { display: grid; grid-template-columns: 60px minmax(0, 1fr); }
+  .spotlight-copy { align-self: center; }
+  .spotlight-actions { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .spotlight-actions button { padding: 8px 4px; font-size: 12px; }
+
+  .app-dialog {
+    width: calc(100% - 16px);
+    max-height: calc(100dvh - 16px);
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+  .dialog-heading { padding-right: 30px; }
+  .photo-picker { max-width: 100%; }
+  .relation-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .form-actions { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+  .form-actions button { padding-inline: 8px; }
+}
+
+@media (max-width: 360px) {
+  .app-shell { padding-inline: 10px; }
+  .language-slider { width: 82px; }
+  .language-slider > span { width: 36px; }
+  .language-slider.ru > span { transform: translateX(38px); }
+  .view-tabs button span { display: none; }
+  .form-actions { grid-template-columns: 1fr; }
+}
