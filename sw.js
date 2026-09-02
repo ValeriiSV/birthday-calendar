@@ -1,5 +1,5 @@
-const CACHE = "birthday-calendar-v6";
-const ASSETS = ["./", "./index.html", "./styles.css", "./glass.css", "./auth-ai.css", "./wow.css", "./contact-picker.css", "./app.js", "./firebase-config.js", "./firebase-init.js", "./ai-features.js", "./wow-features.js", "./i18n.js", "./install.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "birthday-calendar-v7";
+const ASSETS = ["./", "./index.html", "./styles.css", "./glass.css", "./auth-ai.css", "./wow.css", "./contact-picker.css", "./studio-theme.css", "./app.js", "./firebase-config.js", "./firebase-init.js", "./ai-features.js", "./wow-features.js", "./i18n.js", "./install.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => event.waitUntil(
   caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
