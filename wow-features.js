@@ -174,7 +174,7 @@ $("#importCalendarButton").onclick = () => $("#icsImport").click();
 $("#icsImport").onchange = async event => { const file = event.target.files[0]; if (!file) return; const records = parseIcs(await file.text()); window.BirthdayApp.addItems(records); notify(t("importCount").replace("{count}", records.length)); event.target.value = ""; };
 async function choosePhoneContact() {
   if (!("contacts" in navigator) || typeof navigator.contacts.select !== "function") {
-    notify(t("contactsUnsupported"));
+    if (!$("#contactImportDialog").open) $("#contactImportDialog").showModal();
     return null;
   }
   try {
@@ -183,6 +183,36 @@ async function choosePhoneContact() {
     return { name: contacts[0].name?.[0] || "", phone: contacts[0].tel?.[0] || "" };
   } catch { return null; /* user cancelled */ }
 }
+$("#openVcardPicker").onclick = () => $("#contactVcardImport").click();
+function decodeVcardText(value) {
+  return String(value || "").replace(/\\n/gi, "\n").replace(/\\([,;\\])/g, "$1").trim();
+}
+function parseVcard(text) {
+  const unfolded = String(text).replace(/\r?\n[ \t]/g, "");
+  const lineValue = name => unfolded.match(new RegExp(`(?:^|\\r?\\n)${name}(?:;[^:]*)?:(.*)`, "i"))?.[1];
+  const phone = decodeVcardText(lineValue("TEL")).replace(/^tel:/i, "");
+  const formattedName = decodeVcardText(lineValue("FN"));
+  const [family, given, middle, prefix, suffix] = decodeVcardText(lineValue("N")).split(";");
+  const structuredName = [prefix, given, middle, family, suffix].filter(Boolean).join(" ");
+  return phone ? { name: formattedName || structuredName, phone } : null;
+}
+$("#contactVcardImport").onchange = async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const contact = parseVcard(await file.text());
+    if (!contact) return notify(t("contactInvalid"));
+    if ($("#birthdayDialog").open) {
+      $("#personPhone").value = contact.phone;
+      if (!$("#personName").value.trim()) $("#personName").value = contact.name;
+    } else {
+      window.BirthdayApp.openPerson({ ...contact, eventType: "birthday", relation: "other" });
+    }
+    if ($("#contactImportDialog").open) $("#contactImportDialog").close();
+    notify(t("contactSelected"));
+  } catch { notify(t("contactInvalid")); }
+  finally { event.target.value = ""; }
+};
 $("#pickPhoneContact").onclick = async () => {
   const contact = await choosePhoneContact();
   if (!contact) return;
