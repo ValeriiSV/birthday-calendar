@@ -17,3 +17,19 @@
 .phone-picker-row button:hover {
   border-color: #a984ff;
 }
+
+.app-dialog .dialog-close {
+  z-index: 40;
+  will-change: transform;
+  box-shadow: 0 5px 18px #09051455;
+}
+
+.contact-steps {
+  margin: 0 0 18px;
+  padding-left: 24px;
+  color: var(--muted);
+}
+
+.contact-steps li {
+  margin: 8px 0;
+}
