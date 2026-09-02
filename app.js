@@ -3,6 +3,8 @@ const STORE="birthday-calendar-ru-v2",OLD_STORE="birthday-calendar-ru-v1",PREFS=
 const relationKeys=["family","friend","colleague","partner","other"],icons={family:"👨‍👩‍👧‍👦",friend:"🤝",colleague:"💼",partner:"♥",other:"👤"},legacy={"Семья":"family","Друг":"friend","Коллега":"colleague","Партнёр":"partner","Другое":"other","Familie":"family","Prieten":"friend","Coleg":"colleague","Partener":"partner","Altă relație":"other"};
 const eventTypes=["birthday","anniversary","nameDay","important"],giftStatuses=["idea","chosen","ordered","wrapped","given"];
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function keepDialogCloseVisible(dialog){const close=dialog.querySelector(".dialog-close");if(close)close.style.transform=`translateY(${dialog.scrollTop}px)`}
+$$('.app-dialog').forEach(dialog=>dialog.addEventListener("scroll",()=>keepDialogCloseVisible(dialog),{passive:true}));
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 let items=read(STORE,read(OLD_STORE,[])),prefs={lang:"ro",theme:"auto",...read(PREFS,{})},profile=read(PROFILE,null),relation="family",filter="all",messagePerson=null,messageTone="warm",pendingPhoto="";
 const normalizeItem=x=>({...x,relation:legacy[x.relation]||x.relation||"other",eventType:eventTypes.includes(x.eventType)?x.eventType:"birthday",giftStatus:giftStatuses.includes(x.giftStatus)?x.giftStatus:"idea",giftHistory:Array.isArray(x.giftHistory)?x.giftHistory:[]});
