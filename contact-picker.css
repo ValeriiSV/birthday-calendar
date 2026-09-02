@@ -33,3 +33,30 @@
 .contact-steps li {
   margin: 8px 0;
 }
+
+.form-actions {
+  display: grid;
+  grid-template-columns: minmax(110px, .7fr) minmax(150px, 1.3fr);
+  gap: 10px;
+  padding-bottom: max(2px, env(safe-area-inset-bottom));
+}
+
+.form-actions .save-button,
+.form-actions .back-button {
+  min-height: 50px;
+  border-radius: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.form-actions .back-button {
+  border: 1px solid var(--line);
+  background: #ffffff0c;
+  color: var(--text);
+}
+
+@media (max-width: 380px) {
+  .form-actions {
+    grid-template-columns: 1fr;
+  }
+}
